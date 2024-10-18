@@ -119,8 +119,8 @@ fn sign_encrypt_menu(){
     println!("Por favor ingresa tu firma pública: ");
     let mut input = String::new();
     io::stdin().read_line(&mut input).expect("Error al leer la entrada");
-    let message: String = String::from(input.trim());
-    println!("Mensaje a encriptar: {message}");
+    let sign: String = String::from(input.trim());
+    println!("Firma a encriptar: {sign}");
 
     println!("Por favor ingresa n: ");
     let mut input = String::new();
@@ -146,7 +146,7 @@ fn sign_encrypt_menu(){
     };
     println!("Clave privada d: {d}");
 
-    let message_encrypted = encryption::encrypt(&message,&n,&d);
+    let message_encrypted = encryption::encrypt(&sign,&n,&d);
 
     println!("Firma cifrada: {message_encrypted}");
 }
@@ -155,8 +155,14 @@ fn sign_decrypt_menu(){
     println!("Por favor ingresa la firma a descifrar: ");
     let mut input = String::new();
     io::stdin().read_line(&mut input).expect("Error al leer la entrada");
-    let message: String = String::from(input.trim());
-    println!("Firma a descifrar: {message}");
+    let sign = match BigUint::from_str(input.trim()) {
+        Ok(num) => num,
+        Err(_) => {
+            println!("Error: La cadena ingresada no es un número válido.");
+            return;
+        }
+    };
+    println!("Firma a descifrar: {sign}");
 
     println!("Por favor ingresa n: ");
     let mut input = String::new();
@@ -182,9 +188,9 @@ fn sign_decrypt_menu(){
     };
     println!("Clave pública e: {e}");
 
-    let message_encrypted = encryption::encrypt(&message,&n,&e);
+    let sign_decrypted = encryption::decrypt(&sign,&n,&e);
 
-    println!("Firma descifrada: {message_encrypted}");
+    println!("Firma descifrada: {sign_decrypted}");
 }
 
 fn gen_keys() {
