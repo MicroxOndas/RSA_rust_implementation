@@ -94,6 +94,17 @@ Puedes ejecutar el proyecto mediante:
 cargo run
 ```
 
+## Dependencias
+
+Este proyecto utiliza las siguientes dependencias:
+
+```toml
+[dependencies]
+num-bigint = { version = "0.4", features = ["rand"] }
+num-traits = "0.2"
+rand = "0.8"
+```
+
 ## Contribución
 
 ¡Las contribuciones son bienvenidas! Si tienes sugerencias o encuentras algún bug, por favor abre un issue o envía un pull request.
